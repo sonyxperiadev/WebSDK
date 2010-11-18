@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+		
+	<skin id="IPHONE" 
+		skin="iPhone"
+		size="404,755" 
+		screen="42,139,320,480" 
+		button="161,627,80,80" 
+		header="20"
+		radius="0"
+		rotation="true">iPhone</skin>
+	
+	<skin id="ANDROID_G1" 
+		skin="androidG1" 
+		size="450,890" 
+		screen="61,122,320,480" 
+		button="187,740,56,56" 
+		header="20"
+		radius="0"
+		rotation="true">Android G1</skin>
+	
+	<skin id="BLACKBERRY_STORM" 
+		skin="blackberryStorm" 
+		size="464,802" 
+		screen="53,145,360,480" 
+		button="134,673,99,55" 
+		header="20"
+		radius="0"
+		rotation="true">Blackberry Storm</skin>
+	
+	<skin id="BLACKBERRY_BOLD" 
+		skin="blackberryBold" 
+		size="571,969" 
+		screen="44,158,480,320" 
+		button="285,556,93,93" 
+		header="0"
+		radius="0"
+		rotation="false">Blackberry Bold</skin>
+	
+	<skin id="PALM_PRE" 
+		skin="palmPre" 
+		size="458,769" 
+		screen="67,103,320,480" 
+		button="207,628,40,40" 
+		header="40"
+		radius="25"
+		rotation="false">Palm Pre</skin>
+		
+	<skin id="NOKIA_N97" 
+		skin="nokiaN97" 
+		size="476,990" 
+		screen="58,165,360,640" 
+		button="188,867,106,55" 
+		header="0"
+		radius="1"
+		rotation="true">Nokia N97</skin>
+		
+	<skin id="SAMSUNG_EPIX" 
+		skin="samsungEpix" 
+		size="428,793" 
+		screen="54,79,320,320" 
+		button="187,484,58,58" 
+		header="0"
+		radius="0"
+		rotation="false">Samsung Epix</skin>
+	
+	<skin id="SONY_ERICSSON_SATIO" 
+		skin="sonyEricssonSatio" 
+		size="474,934" 
+		screen="57,153,360,640" 
+		button="151,824,175,16" 
+		header="0"
+		radius="0"
+		scale="1"
+		rotation="true">Sony Ericsson Satio</skin>
+		
+	<skin id="SONY_ERICSSON_EXPERIA_X10" 
+		skin="SonyEricssonExperiaX10"
+		size="474,888" 
+		screen="57,96,359,640" 
+		button="115,838,175,16"
+		header="0"
+		radius="0"
+		scale="1"
+		rotation="true">Sony Ericsson Experia X10</skin>
+
+	<skin id="SONY_ERICSSON_VIVAZ" 
+		skin="sonyEricssonVivaz" 
+		size="480,951" 
+		screen="61,179,360,640" 
+		button="172,874,138,24"
+		header="0"
+		radius="0"
+		scale="1"
+		rotation="true">Sony Ericsson Vivaz</skin>
+
+	<skin id="SONY_ERICSSON_XPERIA_MINI" 
+		skin="sonyEricssonXperiaMini" 
+		size="348,567" 
+		screen="54,80,240,320" 
+		button="132,454,84,16"
+		header="0"
+		radius="0"
+		scale="1"
+		rotation="true">Sony Ericsson Xperia Mini</skin>
+
+	<skin id="SONY_ERICSSON_XPERIA_X8" 
+		skin="sonyEricssonXperiaX8" 
+		size="423,740" 
+		screen="53,128,320,480" 
+		button="156,638,112,20"
+		header="0"
+		radius="0"
+		scale="1"
+		rotation="true">Sony Ericsson Xperia X8</skin>
+		
+	<url ><![CDATA[file://www/index.html]]></url>
+	<useragent><![CDATA[Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3]]></useragent>
+</data>

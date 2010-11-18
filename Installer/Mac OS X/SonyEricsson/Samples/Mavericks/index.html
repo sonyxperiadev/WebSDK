@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="seeds.css">
+	<title>Mavericks Big Surf</title>
+	<script type="text/javascript" src="phonegap.js"></script>
+	<script type="text/javascript" src="mootools.js"></script>
+	<script type="text/javascript" src="mootools-more2.js"></script>
+	<script type="text/javascript" src="mavericks.js"></script>
+	<script type="text/javascript" src="movieclip.js"></script>
+	<script type="text/javascript" src="twitter.js"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAR_ki_ibBBbzfTuGuhE05BxSzNcphZzhsePszN4_78BI1qvOpxBQ68o_rxwGD7jEz6HNGi2TQfV30jA"></script>
+<!-- 	<script src="seeds.js" type="text/javascript" charset="utf-8"></script> -->
+
+	<script type="text/javascript">
+		window.addEvent("domready",function() {
+			new MovieClip("waveConditions",
+				{frames: Array('http://www.stormsurfing.com/stormuser2/images/grib/ncal_comp_1.png',
+						 'http://www.stormsurfing.com/stormuser2/images/grib/ncal_comp_3.png',
+						 'http://www.stormsurfing.com/stormuser2/images/grib/ncal_comp_5.png',
+						 'http://www.stormsurfing.com/stormuser2/images/grib/ncal_comp_7.png',
+						 'http://www.stormsurfing.com/stormuser2/images/grib/ncal_comp_9.png'
+						)
+				}
+			);
+			
+			new Request({url: 'http://apps.digitaldandelion.net/mavericks/mobile.xml',
+				onSuccess: function(responseText, responseXML) {	
+					console.log(responseXML.getElementsByTagName("status")[0].childNodes[0].nodeValue);				
+					// set contest status
+					var status;
+					switch (responseXML.getElementsByTagName("status")[0].childNodes[0].nodeValue) {
+						case "0":
+							status = "Off Season";
+							break;
+						case "1":
+							status = "Waiting Period";
+							break;
+						case "2":
+							status = "Greenlight!";
+							break;
+						case "3":
+							status = "Contest On!";
+							break;
+					}
+					
+					$("contestStatus").set("html", '<p>Contest Status</p><p>'+status+'</p><div id="statusOrb" class="glow"></div>');
+					
+					// set contest info URL
+					$("contestIframe").set("src", responseXML.getElementsByTagName("contest")[0].childNodes[0].nodeValue);
+					
+					// set tour music links
+					$("musicList").set("html", responseXML.getElementsByTagName("tour")[0].getElementsByTagName("songs")[0].childNodes[0].nodeValue);
+					
+					// set tour dates
+					$("tourDatesList").set("html", responseXML.getElementsByTagName("tour")[0].getElementsByTagName("dates")[0].childNodes[0].nodeValue);
+					
+				},
+				onFailure: function(xhr) {
+					// set contest status
+					
+					
+					// set contest info URL
+					$("contestIframe").set("src", "http://apps.digitaldandelion.net/mavericks/contest.html");
+					
+					// set tour music links
+					$("musicList").set("html", "<li>Unable to load. Try again later.");
+					
+					// set tour dates
+					$("tourDatesList").set("html", "<li>Unable to load. Try again later.");					
+				}
+			}).send();
+			
+			new Request.Twitter("mavericks_surf", {
+				data: { count: 20 },
+				onSuccess: function(tweets) {
+					var ticker = $("mavericks_surf").getElement("ul");
+					
+					if (tweets.length > 0) {
+						ticker.addClass("tickerscroll");
+						
+						for (var i = 0; i < tweets.length; i++) {
+							// create a li to hold the tweet
+							var li = new Element("li", {});
+							
+							// create a span to hold the time information
+							new Element("div", {"class":"meta", "html":new RelativeDate(tweets[i].created_at).text}).inject(li);
+							
+							// create a span to hold the tweet
+							new Element("span", {"class":"story", "html":tweets[i].text}).inject(li);
+							
+							// add it all to the ticker ul
+							li.inject(ticker);
+						}
+					} else {
+						ticker.set("html","<li>No stories posted.</li>");
+					}
+				}
+			}).send();
+		});
+
+		// Load Google Maps, then try to locate the user
+		google.load("maps", "2.x",{"other_params":"sensor=true"});
+		function googleMapsReady() {
+			map = new google.maps.Map2(document.getElementById("proximityMap"));
+			var currentLocation = new google.maps.LatLng(37.49883, -122.498034);	// Half Moon Bay
+			map.setCenter(currentLocation, 13);
+			
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(userLocated, userLocationNotFound);
+			} else {
+				userLocationNotFound;
+			}
+		}
+		google.setOnLoadCallback(googleMapsReady);
+	</script>
+</head>
+
+<body>
+
+<header>
+	<h1>Mavericks Surf Competition</h1>
+	&nbsp;
+	<nav>
+		<ul>
+			<li id="nav_thePulse" onclick="show('thePulse')" class="selected">The Pulse</li>
+			<li id="nav_theContest" onclick="show('theContest')">The Contest</li>
+			<li id="nav_the24list" onclick="show('the24list')">The 24</li>
+			<li id="nav_theTour" onclick="show('theTour')">The Tour</li>
+		</ul>
+	</nav>
+</header>
+
+<div id="thePulse">
+	<div id="contestStatus" class="boxDesign">
+		<p>Contest Status</p><p>Loading Status</p>
+	</div>
+
+	<div id="twoCol" class="clearfix">
+		<div id="proximity" class="boxDesign">
+			<h2>Half Moon Bay Proximity</h2>
+			<p id="proximityText"><em>Loading&hellip;</em></p>
+			<div id="proximityMap"></div>
+		</div>
+
+		<div id="waveConditions" class="boxDesign"></div>
+	</div>
+	
+	<div id="mavericks_surf" class="ticker boxDesign clearfix">
+		<h2>Twitter Feed</h2>
+		<ul></ul>
+	</div>
+</div>
+
+<div id="theContest" class="hideContent">
+	<iframe class="boxDesign theContest" src="" id="contestIframe" scrolling="yes"></iframe>
+</div>
+
+<div id="the24list" class="hideContent">
+	<ul>
+		<a href="#" onclick="showSurfer('carlosBurle');"><li>
+			<img src="imgs/surferPics/carlosBurleThumb.jpg" width="60" height="60" alt="Carlos Burle" class="boxDesign" /><p>Carlos <strong>Burle</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('anthonyTashnick');"><li href="#">
+			<img src="imgs/surferPics/anthonyTashnickThumb.jpg" width="60" height="60" alt="Anthony Tashnick" class="boxDesign" /><p>Anthony <strong>Tashnick</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('benAndrews');"><li>
+			<img src="imgs/surferPics/benAndrewsThumb.jpg" width="60" height="60" alt="Ben Andrews" class="boxDesign" /><p>Ben <strong>Andrews</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('brockLittle');"><li href="#">
+			<img src="imgs/surferPics/brockLittleThumb.jpg" width="60" height="60" alt="Brock Little" class="boxDesign" /><p>Brock <strong>Little</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('chrisBertish');"><li>
+			<img src="imgs/surferPics/chrisBertishThumb.jpg" width="60" height="60" alt="Chris Bertish" class="boxDesign" /><p>Chris <strong>Bertish</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('darrylVirostko');"><li href="#">
+			<img src="imgs/surferPics/darrylVirostkoThumb.jpg" width="60" height="60" alt="Darryl Flea Virstko" class="boxDesign" /><p>Darryl <strong>Flea</strong> Virostko</p>
+		</li></a>
+		<a href="#" onclick="showSurfer('daveWassel');"><li>
+			<img src="imgs/surferPics/daveWasselThumb.jpg" width="60" height="60" alt="Dave Wassel" class="boxDesign" /><p>Dave <strong>Wassel</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('evanSlater');"><li href="#">
+			<img src="imgs/surferPics/evanSlaterThumb.jpg" width="60" height="60" alt="Evan Slater" class="boxDesign" /><p>Evan <strong>Slater</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('grandBaker');"><li>
+			<img src="imgs/surferPics/grandBakerThumb.jpg" width="60" height="60" alt="Grant Twiggy Baker" class="boxDesign" /><p>Grant <strong>Twiggy</strong> Baker</p>
+		</li></a>
+		<a href="#" onclick="showSurfer('grantWashburn');"><li href="#">
+			<img src="imgs/surferPics/grantWashburnThumb.jpg" width="60" height="60" alt="Grant Washburn" class="boxDesign" /><p>Grant <strong>Washburn</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('gregLong');"><li>
+			<img src="imgs/surferPics/gregLongThumb.jpg" width="60" height="60" alt="Greg Long" class="boxDesign" /><p>Greg <strong>Long</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('ionBanner');"><li href="#">
+			<img src="imgs/surferPics/ionBannerThumb.jpg" width="60" height="60" alt="Ion Banner Virostko" class="boxDesign" /><p>Ion <strong>Banner</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('jamieSterling');"><li>
+			<img src="imgs/surferPics/jamieSterlingThumb.jpg" width="60" height="60" alt="Jamie Sterling" class="boxDesign" /><p>Jamie <strong>Sterling</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('joshLoya');"><li>
+			<img src="imgs/surferPics/joshLoyaThumb.jpg" width="60" height="60" alt="Josh Loya" class="boxDesign" /><p>Josh <strong>Loya</strong>!!</p>
+		</li></a>
+		<a href="#" onclick="showSurfer('kennyCollins');"><li href="#">
+			<img src="imgs/surferPics/kennyCollinsThumb.jpg" width="60" height="60" alt="Kenny Skindog Collins" class="boxDesign" /><p>Kenny <strong>Skindog</strong> Collins</p>
+		</li></a>
+		<a href="#" onclick="showSurfer('mattAmbrose');"><li>
+			<img src="imgs/surferPics/mattAmbroseThumb.jpg" width="60" height="60" alt="Matt Ambrose" class="boxDesign" /><p>Matt <strong>Ambrose</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('nathanFletcher');"><li href="#">
+			<img src="imgs/surferPics/nathanFletcherThumb.jpg" width="60" height="60" alt="Nathan Fletcher" class="boxDesign" /><p>Nathan <strong>Fletcher</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('peterMel');"><li>
+			<img src="imgs/surferPics/peterMelThumbs.jpg" width="60" height="60" alt="Peter Mel" class="boxDesign" /><p>Peter <strong>Mel</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('ryanSeelbach');"><li>
+			<img src="imgs/surferPics/ryanSeelbachThumb.jpg" width="60" height="60" alt="Ryan Seelbach" class="boxDesign" /><p>Ryan <strong>Seelbach</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('shaneDesmond');"><li href="#">
+			<img src="imgs/surferPics/shaneDesmondThumb.jpg" width="60" height="60" alt=">Shane Desmond" class="boxDesign" /><p>Shane <strong>Desmond</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('shawnRhodes');"><li>
+			<img src="imgs/surferPics/shawnRhodesThumb.jpg" width="60" height="60" alt="Shawn Rhodes" class="boxDesign" /><p>Shawn <strong>Rhodes</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('timWest');"><li href="#">
+			<img src="imgs/surferPics/timWestThumb.jpg" width="60" height="60" alt="Tim West" class="boxDesign" /><p>Tim <strong>West</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('tylerSmith');"><li>
+			<img src="imgs/surferPics/tylerSmithThumb.jpg" width="60" height="60" alt="Tyler Smith" class="boxDesign" /><p>Tyler <strong>Smith</strong></p>
+		</li></a>
+		<a href="#" onclick="showSurfer('zachWormhoudt');"><li href="#">
+			<img src="imgs/surferPics/zachWormhoudtThumb.jpg" width="60" height="60" alt="Zach Wormhoudt" class="boxDesign" /><p>Zach <strong>Wormhoudt</strong></p>
+		</li></a>
+	</ul>
+
+
+</div>
+
+<div id="the24Single" class="hideContent">
+		<iframe class="the24Single" src="" id="surferProfile" scrolling="no"></iframe>
+</div>
+
+<div id="theTour" class="hideContent">
+	<img class="matisyahu_tour" src="imgs/matisyahuImage.jpg" alt ="Matisyahu Tour" class="boxDesign surferImage" >
+	<p>The 2009 Mavericks Live Tour&trade; presented by Sony Ericsson invites you to experience the sights and sounds of Mavericks while dancing to the beats of Grammy-nominated reggae artist Matisyahu.</p>
+	<div class="clearfix">
+		<div id="tourDates" class="boxDesign">
+			<h2>Tour Dates <a href="#" class="tourRight">More&raquo;</a></h2>
+				<ul id="tourDatesList">
+					<li><em>Loading&hellip;</em></li>
+				</ul>
+		</div>
+	
+		<div id="music" class="boxDesign">
+			<a href="#"><h2></h2></a>
+				<ul id="musicList">
+					<li><em>Loading&hellip;</em></li>
+				</ul>
+		</div>
+	</div>
+</div>
+
+<div id="about" class="hideContent">
+	<h2>About</h2>
+	<p>Created for <a href="http://www.sonyericsson.com/">Sony Ericsson</a> by <a href="http://digitaldandelion.net/">Digital Dandelion</a> using <a href="http://phonegap.com/">PhoneGap</a>.</p>
+	<p>Web application copyright 2009 Digital Dandelion, Inc., except where otherwise noted. Code licensed under Creative Commons Attribution 3.0 United States License.</p>
+	<p>PhoneGap copyright 2008, Rob Ellis, Brock Whitten, Brian Leroux, Joe Bowser, Dave Johnson, Nitobi. Licensed under The MIT License.</p>
+	<p>Graphics copyright 2009 Mavericks Surf Contest. All rights reserved.</p>
+
+	<div id="container">
+		<div id="seedContainer"></div>
+	</div>
+</div>
+
+<footer>
+	<a href="#"><img class="branding" src="imgs/sonyBranding.png" alt="Sponsored by Sony Ericsson" /></a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PhoneGap Android</title>
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/master.css" type="text/css" media="screen" />
+</head>
+<body>
+<div class="container">
+  <div id="header">
+    <h1><a href="./android_start.html" class="title">Developing with PhoneGap Android</a></h1>
+  </div>
+
+<h2>Recommended Pre-requisites for Android Development</h2>
+<ol>
+<li>Install the Java SE Development Kit - JDK 6 from <a href="http://java.sun.com/javase/downloads/index.jsp">http://java.sun.com/javase/downloads/index.jsp</a>. This is a standard Windows installer file, follow the on screen instructions for installation.</li>
+<li>Install the Eclipse IDE for Java Developers from <a href="http://www.eclipse.org/downloads/">http://www.eclipse.org/downloads/</a>. This a ZIP archive file, extract the folder “eclipse” into your “Program Files” folder.</li>
+<li>Install the Android SDK Package from <a href="http://developer.android.com/sdk/index.html">http://developer.android.com/sdk/index.html</a> This a ZIP archive file, extract the folder “android-sdk_r3-windows.zip” into your “Program Files” folder.</li>
+<li>Install the ADT Plug-in for Eclipse as described here: <a href="http://developer.android.com/sdk/eclipse-adt.html">http://developer.android.com/sdk/eclipse-adt.html</a></li>
+<li>Install the Android 1.6 and 2.0 SDK packages using the Eclipse ADT plugin, as described here: <a href="http://developer.android.com/sdk/adding-components.html">http://developer.android.com/sdk/adding-components.html</a>
+</li>
+<li>Install the Sony Xperia Skin.  Instructions to do this are <a href="skin_install.html">here</a></li>
+</ol>
+
+<h2>Getting Started with PhoneGap Android</h2>
+
+<p>First, download PhoneGap from the <a href="http://www.phonegap.com">website</a>, and unzip it a directory.  Then, open Eclipse, and go to File -> Import, which opens the Import Project Dialog, and select General -> Existing Projects into Workspace.</p>
+<img src="css/import_android_project.png" />
+<p>Once this is done, select the location of your Android PhoneGap Installation, and Click Finish.</p>
+<img src="css/import_phonegap_project.png" />
+<p>In Eclipse, you sould see your PhoneGap Project.</p>
+<img src="css/phonegap_files.png" />
+<p>Click the Run button in Eclipse, it is the button that looks like "Play". When you run this project, you should the dialog box to Run As.., choose Android Application. You may get the unable to launch dialog, this can happen if you have the Android 1.6 highlighted when you try to run the project. Just select the project folder and click run.
+</p>
+<img src="css/Unable_To_launch.jpg" />
+<br />
+<img src="css/RunAsDialog.jpg" />
+<p> If you have done everything correctly, there should be an Application that loads up and looks similar to the application below.  It should be noted that testing with an actual devices is preferrable to the Emulator for many reasons, since you will have access to real Accelerometer, Geolocation, Beep and Vibrate functionality.  However, for testing browser events, and browser rendering issues, the Emulator fills theses tasks well.</p>
+<img src="css/Xperia.png" />
+<p>Refer to the <a href="./api.html">PhoneGap API Documentation</a> for the device functionalities that are exposed (such as Geolocation, Vibration, Contacts, and others).</p>
+
+</div>
+</body>
+</html>

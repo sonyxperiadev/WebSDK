@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Phonegap Docs</title>
+<link rel="stylesheet" href="../css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="../css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="../css/master.css" type="text/css" media="screen" />
+</head>
+<body>
+<div class="container">
+  <div id="header">
+    <h1><a href="../api.html" class="title">PhoneGap Docs</a></h1>
+  </div>
+  <div id="navigation" class="column span-4">  
+	  <h4>PhoneGap</h4>
+	  <div>
+	    <a href='../docs/device.html'>Device</a>
+	    <a href='../docs/notification.html'>Notification</a>
+	    <a href='../docs/media.html'>Media</a>
+	    <a href='../docs/geolocation.html'>GeoLocation</a>
+	    <a href='../docs/accelerometer.html'>Accelerometer</a>
+	    <a href='../docs/contact.html'>Contact</a>
+	    <a href='../docs/camera.html'>Camera</a>
+	  </div>
+	</div>	
+  <div id="main" class="column l-border span-19 last demo">
+    <ul class="devices"><li class="iphone">iphone</li><li class="android">android</li><li class="symbian">symbian</li></ul>
+<h2>Camera</h2>
+
+<h3 class="code">Code</h3>
+<pre>navigator.camera.getPicture(<span class="arg_req">win</span>, <span class="arg_req">fail</span>, options)</pre>
+
+<h3 class="code">Example</h3>
+<pre>
+    navigator.camera.getPicture(dump_pic, fail, { quality: 50 });
+
+    function dump_pic(data)
+    {
+      console.log(data);
+      viewport.style.display = "";
+      viewport.style.position = "absolute";
+      viewport.style.top = "10px";
+      viewport.style.left = "10px";
+      document.getElementById("test_img").src = "data:image/jpeg;base64," + data;
+    }
+
+</pre>
+
+  </div>
+  <div id="footer" class="column clear span-24">
+    <p>This layout was shamelessly taken from <a href="http://demos.mootools.net/">mootools demos</a></p>
+  </div>
+</div>
+</body>
+</html>

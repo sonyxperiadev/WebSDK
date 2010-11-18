@@ -1,0 +1,57 @@
+body {
+	width:235px;
+}
+
+header {
+	width:235px;
+}
+
+#contestStatus {
+	width:235px;
+	height:54px;
+}
+
+#statusOrb {
+	width:235px;
+}
+
+#smsAlert {
+	width:235px;
+}
+.ticker {
+	width: 235px;
+}
+@-webkit-keyframes ticker-scroll {
+	from {
+		left: 235;	/* start off screen */
+	}
+	to {
+		left: -4235px; /* 20 stories, 200 wide, plus 450 container width */
+	}
+}
+
+#the24list ul {
+	width:235px;
+}
+
+#the24Single #twitterFeed {
+	width:235px;
+}
+
+footer {
+	width:235px;
+}
+
+.matisyahu_tour {
+	width:235px
+}
+.branding {
+	width:235px;
+	height:auto;
+}
+.the24Single {
+	width:235px;
+}
+nav {
+	height:150px;
+}

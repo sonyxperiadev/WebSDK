@@ -1,0 +1,83 @@
+body {
+    font-family:'Droid Sans', sans-serif;
+    font-size: 27px;
+    font-weight: 400;
+    width:480px;
+    background-color:#101010;
+}
+
+div.header {
+    display: block;
+    height: 30px;
+    background-color:#808080;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 25px;
+    width: 430px;
+}
+
+div.menu {
+    display: block;
+    height: 30px;
+    background-color:#404040;
+    width: 480px;
+}
+
+div.footer {
+    display:block;
+    background-color:#808080;
+    width: 480px;
+}
+
+div.page {
+    display:block;
+    width: 480px;
+    padding-bottom: 25px;
+    padding-top: 10px;
+}
+
+div.menu ul {
+    display: block;
+    background-color: #b7bfc8;
+    float: none;
+    -webkit-padding-start:15px;
+	
+}
+
+li.item {
+    list-style-type: none;
+    display: block;
+    float:left;
+    margin-right:10px;
+    color:#fff;
+    border: 3px solid #b7bfc8;
+    padding-left: 10px;
+    padding-right: 10px;
+	-webkit-border-radius: 24px;
+	
+}
+
+li.item:last-child {
+    margin-right: 0px;
+}
+
+li.item.selected {
+    color:#000000;
+    background-color:#c6d3e3;
+    border: 3px solid #fff;
+}
+
+div.hidden {
+    display:none;
+}
+
+div {
+    display: block;
+    clear: both;
+    color:#fff;
+}
+
+a {
+    color: #fff;
+    background-color:#1F1F1F;
+}

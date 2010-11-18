@@ -1,0 +1,37 @@
+For building WebSDK Packager you need to install following tools:
+------------------------------------------------------------------
+ * Eclipse PDE (Plug-in Development Environment) http://www.eclipse.org/pde/
+ * NetBeans (>= 6.9) http://netbeans.org/index.html
+ * Visual Studio 2008 Professional http://www.microsoft.com/downloads/en/results.aspx?freetext=Visual%20Studio%202008%20Professional%20Edition
+
+Steps for building Eclipse Plug-in:
+------------------------------------------------------------------
+ * Start Eclipse
+ * 'File'->'Import'->'General'->'Existing Projects into Workspace'
+   * Select 'WebSDK Plugin' folder
+ * Open new imported project
+ * Open file 'plugin.xml'
+ * Press button 'Export deployable plug-ins and fragments' (in the left-top corner)
+ * Set 'Destination' as 'Directory'
+   * Browse to 'Installer\Installation_Resources\eclipse plugin'
+   * Press 'Finish'
+ * Open folder 'Installer\Installation_Resources\eclipse plugin'
+   * Move jar-file (WebSDK_Plugin_1.0.0.jar) from 'plugins' folder to parent folder
+   * Remove folder 'plugins'
+
+Steps for bulding WebSDK Packager:
+------------------------------------------------------------------
+ * Start NetBeans
+ * 'File'->'Open Project'
+   * Select source code root folder
+ * 'Run'->'Clean and build project'
+   * Move jar-file (WebSDK.jar) from folder 'dist' to 'Installer\Installation_Resources\WEBSDK JAR TO USE'
+
+Steps for generating installer:
+------------------------------------------------------------------
+ * Start Visual Studio
+ * 'File'->'Open Project/Solution'
+   * Select file 'Installer\Installation_project_template\PhoneGapSetup\PhoneGapSetup.sln'
+ * Select Solution 'PhoneGapSetup'
+ * Press right mouse button and select 'Rebuild Solution'
+ * Resulting file is placed in folder 'Installer\Installation_project_template\PhoneGapSetup\PhoneGapSetup\Release'

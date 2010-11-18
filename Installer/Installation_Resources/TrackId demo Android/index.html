@@ -1,0 +1,329 @@
+<html>
+    <head>
+        <script type=text/javascript src=xui.js></script>
+        <script type=text/javascript src=micro.js></script>
+        <script type=text/javascript src=phonegap.js></script>
+        <script type=text/javascript src=jXHR.js></script>
+        <script type=text/javascript src=trackid.js></script>
+        <script type=text/javascript>
+            var settings =
+            {
+                service: "trackid3",
+                securitydomain: "mashery",
+                countryName: null,
+                countryCode: null,
+                listSize: "10"
+            };
+
+            function detectLocation(callback)
+            {
+			
+				debugger;
+                try
+                {
+                    navigator.geolocation.getCurrentPosition(function(position)
+                    {
+                        if(position.latitude == null || position.longitude == null)
+                        {
+                            position = position.coords;
+                            if(position.latitude == null || position.longitude == null)
+                            {
+                                position == null;
+                            }
+                        }
+                        if(position)
+                        {
+                            if(callback)
+                            {
+                                callback(position);
+                            }
+                            else
+                            {
+                                var str = dumpObj(position, "Position");
+                                alert(str);
+                            }
+                        }
+                        else
+                        {
+                            alert("Could not get location");
+                        }
+                    }, function()
+                    {
+                        alert("Could not get location");
+                    });
+                }
+                catch(e)
+                {
+                    alert("Could not get location");
+                }
+            }
+
+            function detectCountry(callback)
+            {
+                detectLocation(function(location)
+                {
+        
+                    var url = "http://ws.geonames.org/countryCodeJSON?"+
+                        "lat="+location.latitude+"&"+
+                        "lng="+location.longitude;
+        
+                    x$("#loader").removeClass("hidden");
+                    loadURL(url, function(json)
+                    {
+                        x$("#loader").addClass("hidden");
+                        settings.countyName = json.countryName;
+                        settings.countryCode = json.countryCode;
+                        var str = "Country: <b>" + settings.countyName + " ("+settings.countryCode+")</b>";
+                        x$("#country").html(str);
+                        if(callback)
+                        {
+                            callback();
+                        }
+                    }, true);
+                });
+            }
+
+           function getCountryCode(callback)
+           {
+               if(callback == null)
+               {
+                   throw new Error("callback is null");
+               }
+               if(settings.countryCode == null)
+               {
+                   detectCountry(function()
+                   {
+                       if(settings.countryCode != null)
+                       {
+                           callback(settings.countryCode);
+                       }
+                       else
+                       {
+                           alert("Can't detect country");
+                       }
+                   });
+               }
+               else
+               {
+                   callback(settings.countryCode);
+               }
+           }
+        
+            function getTopTen()
+            {
+                getCountryCode(function()
+                {
+                    var url = "http://sonyericsson.api.mashery.com/" + settings.service + "/" + settings.securitydomain +
+                        "/countries/1.0/cc/"+settings.countryCode+"/tracks/top/"+settings.listSize+
+                        "?api_key=wm9bmr992f68qubane7hrq6g&json=true";
+                    x$("#loader").removeClass("hidden");
+                    loadURL(url, function(json)
+                    {
+                        x$("#loader").addClass("hidden");
+                        var res = tmpl("tracklist_tmpl", {"json": json});
+                        x$("#chart").html(res);
+                        //document.location = "#tracklist";
+                    }, true);
+                });
+            }
+
+            function searchTrack(title, album, artist)
+            {
+                var url = "http://ws.spotify.com/search/1/track?q="+encodeURIComponent(title);
+                x$("#loader").removeClass("hidden");
+                loadURL(url, function(json)
+                {
+                    x$("#loader").addClass("hidden");
+                    if(json.tracks && json.tracks.track && json.tracks["opensearch:totalResults"]["#text"] < 100)
+                    {
+                        //for(var n = 0; n < json.tracks.track.length; n++)
+                        var n = 0;
+                        while(n < json.tracks.track.length)
+                        {
+                            var track = json.tracks.track[n];
+                            var remove = true;
+                            if(track.name["#text"] == title)
+                            {
+                                if(track.album.name["#text"] == album)
+                                {
+                                    if(track.artist.name && track.artist.name["#text"] == artist)
+                                    {
+                                        remove = false;
+                                    }
+                                }
+                            }
+                            if(remove)
+                            {
+                                json.tracks.track.splice(n, 1);
+                                remove = false;
+                            }
+                            else
+                            {
+                                n++;
+                            }
+                        }
+                        if(json.tracks && json.tracks.track && json.tracks.track.length > 0)
+                        {
+                            var res = tmpl("searchresult_tmpl", {"json": json});
+                            x$("#spotify_list").html(res);
+                        }
+                        else
+                        {
+                            var res = tmpl("notfound_tmpl", {
+                                'title': title,
+                                'album': album,
+                                'artist': artist
+                            });
+                            x$("#spotify_list").html(res);
+
+                        }
+                    }
+                    else
+                    {
+                        var res = tmpl("notfound_tmpl", {
+                            'title': title,
+                            'album': album,
+                            'artist': artist
+                        });
+                        x$("#spotify_list").html(res);
+                    }
+                    select_item("#spotify");
+                });
+            }
+
+            function select_item(item)
+            {
+				debugger;
+                if(!x$(item).hasClass("selected"))
+                {
+                    //x$('dev.menu ul li').removeClass("selected");
+                    selected.removeClass("selected");
+
+                    var page_selector = "#"+selected.first().id+"_page";
+                    x$(page_selector).addClass("hidden");
+                    selected = x$(item);
+
+                    page_selector = "#"+selected.first().id+"_page";
+                    selected.addClass("selected");
+                    x$(page_selector).removeClass("hidden");
+                }
+            }
+
+            var selected;
+
+            x$(window).load(function(e) {
+				
+				debugger;
+                selected = x$("#charts");
+
+                x$('li.item').click(function(e)
+                {
+                    select_item(this);
+                });
+
+                getTopTen();
+            });
+        </script>
+        <script id=tracklist_tmpl type=text/html>
+            <% if(json.feed)
+            { %>
+                <!-- h1><%=json.feed.title["$"]%></h1 -->
+                <h3><%=json.feed.subtitle["$"]%></a></h3>
+                <% for(var n = 0; n < json.feed.entry.length; n++)
+                {
+                    var entry = json.feed.entry[n]; %>
+                    <%=entry.title["$"]%>
+                    <a href="#" onclick='searchTrack("<%=entry.content.item.track["$"]%>","<%=entry.content.item.album["$"]%>","<%=entry.content.item.artist["$"]%>");'>Search</a>
+                    <br>
+                <% ;
+                entry.content.item.artist["$"];
+                entry.content.item.album["$"];
+                } %>
+                </ul>
+            <% } else { %>
+            <i>No data</i>
+            <% } %>
+        </script>
+        <script type=text/html>
+        
+        </script>
+        <script id=searchresult_tmpl type=text/html>
+            <h1>Spotify</h1>
+            <% if(json.tracks && json.tracks.track && json.tracks.track.length > 0) { %>
+                <ul>
+                <% for(var n = 0; n < json.tracks.track.length; n++)
+                {
+                    /* http://open.spotify.com/track/3mvIes4tElBL62bzClumwE */
+                    var track = json.tracks.track[n]; %>
+                    <li>
+                    <%=track.name["#text"]%>&nbsp;&mdash;&nbsp;
+                    <% var code = track["@href"];
+                    var url = code.replace("spotify:track:", "http://open.spotify.com/track/");
+                    if(track.artist.name) { %>
+                        <%=track.artist.name["#text"]%>&nbsp;
+                    <% }
+                    else
+                    { %>
+                        <%
+                        for(var m = 0; m < track.artist.length; m++) {
+                            if(m != 0) { %>
+                            ,&nbsp;
+                            <% } %>
+                            <%=track.artist[m].name["#text"]%>
+                        <% } %>
+                    <% } %>
+                    &nbsp;(<%=track.album.name["#text"]%>)
+                    <a href="<%=url%>" target="_blank">Play</a>
+                    </li>
+                <% } %>
+                </ul>
+            <% } else { %>
+                <i>No data</i>
+            <% } %>
+        </script>
+        
+        <script id=notfound_tmpl type=text/html>
+            <h1>Spotify</h1>
+            <%=title%></b>&nbsp;&mdash;&nbsp;<%=artist%>&nbsp;(<%=album%>)&nbsp;<i> <br> <br> Song not available in Spotify for the country selection</i>
+        </script>
+        <link rel="stylesheet" href="trackid.css">
+    </head>
+    <body>
+        <div class=header align=left>
+            
+			<img src="trackID_logo.png" width="150" height="35" alt="TrackID" >
+        </div>
+        <div class=menu>
+            <ul>
+                <li id=charts class="item selected">Charts</li>
+                <li id=spotify class=item >Spotify</li>
+                <li id=about class=item >About</li>
+            </ul>
+        </div>
+        <div id=charts_page class="page">
+            <div id=country>Country: Detecting...</div>
+            <div id=chart></div>
+        </div>
+        <div id=spotify_page class="page hidden">
+            <div id=spotify_list>
+                Please Search for top songs in Country Charts
+            </div>
+        </div>
+        <div id=playnow_page class="page hidden">
+            PlayNow
+        </div>
+        <div id=about_page class="page hidden">
+            This sample application is built to illustrate mash-up with 
+			Sony Ericsson Track Id APIs using SonyEricsson WebSDK. It detects your location automatically 
+			and provides top charts for your region. You can further play those tops songs 
+			in Spotify if Spotify is supported in your region.<br> <br> 
+			For developing your own mash-up web application goto http://developer.sonyericsson.com. 
+			Download WebSDK for easily developing web application on Android and Symbian based devices.
+			Download the open source mash-up sample as reference to develop innovative 
+			cross-platform web applications using Sony Ericsson web service APIs & other web services. 
+        </div>
+        <div class=footer>
+            <img src="sonyBranding.png" width="480" height="35" alt="Sponsored by Sony Ericsson" />
+        </div>
+    </body>
+</html>

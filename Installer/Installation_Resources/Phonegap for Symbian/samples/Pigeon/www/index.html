@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta name="viewport" content="width=320; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Pigeon - PhoneGap Twitter App</title>
+		<script type="text/javascript" src="script/phonegap.js"></script>
+		<script type="text/javascript" src="script/xui-min.js"></script>
+		<script type="text/javascript" src="script/sizzle.js"></script>
+			<script>
+		xui.extend({
+				find: function(q) {
+					var ele = [];
+					var qlen = q.length;
+
+		      var list, size;
+		      var i, j;
+					for(i = 0; i < qlen; i++ ) {
+						if (typeof q[i] == 'string' ) { // one selector
+							list = document.querySelectorAll ? document.querySelectorAll(q[i]) : Sizzle(q[i]);
+							size = list.length;
+							for(j = 0; j < size; j++ ) {
+								ele.push(list[j]);
+							}
+						} else {
+							if (q[i] instanceof Array) { // an array of selectors
+								for (var x = 0; x < q[i].length; x++) {
+									list = document.querySelectorAll ? document.querySelectorAll(q[i][x]) : Sizzle(q[i][x]);
+									size = list.length;
+									for(j = 0; j < size; j++ ) {
+										ele.push(list[j]);
+									}
+								}
+							} else {
+								ele.push(q[i]);	// an element
+							}
+						}
+					}
+					this.elements = this.elements.concat(this.reduce(ele));
+					return this;
+				}			
+		});
+	</script>
+	<script type="text/javascript" src="script/pigeon.js"></script>
+		<link rel="stylesheet" type="text/css" href="master.css" media="screen" />
+	</head>
+	<body>
+
+		<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+			Header 
+		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+		<div id="header">
+			<h1 id="loading_loading"></h1>
+			
+			<div id="login_screen" class="panel" >
+				<form id="login_form" action="#" style="margin:0px;padding:0px;">
+					
+					<div class="left_column">
+						<h1>Pigeon</h1>
+						<a href="#" class="submission" id="login_link"></a>
+					</div>
+				<!-- wrt does not support auth headers, so we need to use the native auth prompt,
+					 and these inputs are thus pointless and misleading -->
+					<div id="login_input" style="display:none;">
+						<label>Username</label><input type="text" id="user_field" name="Username" length="15" />
+						<label>Password</label><input type="password" id="pass_field" name="Password" length="15" />
+					</div>
+				</form>
+			</div>
+			<div id="post_new_tweet" class="panel">
+				
+				<div class="left_column">
+					<h1>Pigeon</h1>
+					<a href="#" class="submission" id="tweet_link"></a>
+				</div>
+				<textarea id="tweet_content" rows="3" cols="45" maxlength="140"></textarea>
+			</div>
+						
+			<form id="search_form" action="#" style="display:none" class="panel">
+				
+				<div class="left_column">
+					<h1>Pigeon</h1>
+					<a href="#" class="submission" id="search_link">Search</a>
+				</div>
+				
+				<div id="search_input">
+					<label>Search</label><input type="text" id="query" name="Query" length="15" />
+				</div>
+			</form>
+			
+		</div>
+
+
+		<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+				Menu 
+		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+		
+		<div id="menu_options">
+			<ul>
+				<li><a href="#" id="menu_friends">Friends</a></li>
+				<li><a href="#" id="menu_search">Search</a></li>
+				<li><a href="#" id="menu_local">Local</a></li>
+				<li><a href="#" id="menu_dms">DMs</a></li>
+				<li><a href="#" id="menu_logout">Logout</a></li>
+			</ul>
+		</div>
+		
+		
+		<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+				Content 
+		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+		
+		<div id="dm_content" class="twt_panel">
+		</div>
+		<div id="content" class="twt_panel">
+		</div>
+		<div id="local_content" class="twt_panel">
+			<h2 id="local_header">Tweets Near You ...finding satellites</h2>
+			<div id="local_results"></div>
+		</div>
+		<div id="search_panel" class="twt_panel">
+			<h2 id="search_header">Search Results for "<span id="search_term"></span>"</h2>
+			<div id="search_results"></div>
+		</div>
+	</body>	
+</html>

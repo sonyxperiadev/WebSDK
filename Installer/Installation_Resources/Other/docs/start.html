@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PhoneGap Symbian</title>
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/master.css" type="text/css" media="screen" />
+</head>
+<body>
+<div class="container">
+  <div id="header">
+    <h1><a href="./start.html" class="title">Developing with PhoneGap Symbian</a></h1>
+  </div>
+
+<h2>Getting Started</h2>
+
+<p>Read the <a target="_blank" href="http://www.forum.nokia.com/info/sw.nokia.com/id/e2211487-db31-49c0-a862-a770397d7a2c/S60_5th_Edition_SDK_Release_Notes.html">S60 5th Edition Release notes</a> and install the prerequisite tools ( Active Perl 5.6.1, Java Runtime 1.6).</p>
+<p>Download and install the <a href="http://www.forum.nokia.com/info/sw.nokia.com/id/ec866fab-4b76-49f6-b5a5-af0631419e9c/S60_All_in_One_SDKs.html">S60 5th Edition SDK</a>.</p>
+<p>Install the Sony Ericsson Satio skin for the S60 5th edition emulator (skin/semc_extension_1.0.0.msi). Note that this emulator only runs on Windows PC.</p>
+
+<p><b>Note</b>: PhoneGap for Symbian has no native codebase, and requires no building. This may seem unusual to a developer who has used PhoneGap for one of the other platforms (BlackBerry, iPhone, Android), for which native code must be built around the web files (i.e. html/css/js files built into a package with Java or C). This is because PhoneGap for Symbian uses the <a href="http://www.forum.nokia.com/Technology_Topics/Web_Technologies/Web_Runtime/">WebRuntime technology</a> to package the web files, and thus all one needs is a web-app and the Symbian version of Phonegap.js.</p>
+
+<h2>Running the Demo Apps on the Emulator</h2>
+
+<p>Run the emulator from Start -> Programs -> S60 Developer Tools -> 5th Edition SDK -> v1.0 -> Emulator</p>
+
+<p>Install the Pigeon demo application in the Emulator: File -> Open, and select /samples/Pigeon/Pigeon.wgz. The emulator will then prompt you to install the application. It will be in Applications on the emulator device.</p>
+
+<img src="./css/Satio.jpg" style="margin-left:100px; width:300px;" />
+
+<h2>Running the Demo Apps on the Device</h2>
+
+<p>Install the Pigeon demo application to the device: send the same Pigeon.wgz file as above to your device via Bluetooth, email, usb, etc. Symbian will recognize the file type and install it. You can also try the PhoneGap API demo app at /samples/PhoneGapDemo/symbian.wrt.demo.app.wgz. This file is a more complete demonstration of the various device functionalities exposed by the PhoneGap API.</p>
+
+<img src="./css/pigeon1.png" style="margin-left:100px; width:200px;" />
+<img src="./css/pigeon2.png" style="margin-left:100px; width:200px;" />
+
+<h2>Develop your Own PhoneGap Symbian Application</h2>
+
+<p>The sample application source code for Pigeon resides at /samples/Pigeon/www/. These files are just web technologies (html, css, js, etc), save for info.plist. Info.plist is an xml file which tells Symbian about the application. Properties are self-explanatory ... refer to /samples/Pigeon/www/info.plist for an example.</p>
+
+<p>As the application is developed primarily on web technologies, design and functionality can be tested on the fly in a browser. Once you begin to implement phonegap APIs however, you will need to run them on the emulator or the device to test the device functions.</p>
+
+<p>Other than info.plist, the only thing that will be new to a web developer in these apps is the <a href="./api.html">PhoneGap API</a>, which allows the developer to interact with the device. To make these apis available to your application, simply include phonegap.js, or phonegap-min.js, located in the /libs folder. These APIs should be consistent across all platforms, including iPhone, Android, BlackBerry, and Symbian. However note that this project is a work in progress and minor tweaks across platforms are still required. In particular, developers should be aware that each device uses different webkit builds, and different resolutions, so html, css and images may show up differently on different devices.</p>
+
+<p>Refer to the <a href="./api.html">PhoneGap API Documentation</a> for the device functionalities that are exposed (such as Geolocation, Vibration, Contacts, and others).</p>
+
+<p>Once you have your web files, phonegap.js, and info.plist complete (or ready to be tested at least) and in a www folder, simply compress the folder into a zip file, and rename its extension from .zip to .wgz. Then, install the file to the emulator or the device, as above.</p>
+
+</div>
+</body>
+</html>

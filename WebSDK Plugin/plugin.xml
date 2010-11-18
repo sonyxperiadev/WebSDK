@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="com.example.phonegap.PhoneGapNature"
+         name="PhoneGap Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="websdk_plugin.actions.PhoneGapNature">
+         </run>
+      </runtime>
+   </extension>
+   
+   <extension 
+   		 id="com.example.mywizard.wizard"
+         name="Testing Wizard"
+   		 point="org.eclipse.ui.newWizards">
+   <category
+            id="com.sonyericsson.ide.eclipse.phonegap.category"
+            name="Web application"/>
+   <wizard
+   			icon="icons/web_sdk_icon_app.ico"
+            canFinishEarly="false"
+            category="com.sonyericsson.ide.eclipse.phonegap.category"
+            class="websdk_plugin.actions.WebAppWizard"
+            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            hasPages="true"            
+            id="com.sonyericsson.ide.eclipse.phonegap.project.NewProjectWizard"
+            name="New web application project"
+            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            project="true"/>
+   </extension>
+   
+   <extension
+         id="com.example.phonegap.PhoneGapPopup"
+         name="PhoneGap Tools"
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            nameFilter="*"
+            id="com.example.phonegap.PhoneGapContribution"
+            objectClass="org.eclipse.core.resources.IProject">
+         <!--<action
+               class="websdk_plugin.actions.UpdateToPhoneGapAction"
+               enablesFor="1"
+               id="com.example.phonegap.UpdateToPhoneGapAction"
+               label="Update to Phonegap"
+               menubarPath="phonegapmenu">
+         </action> -->
+         
+         <action
+               class="websdk_plugin.actions.LaunchWebSDK"
+               id="com.example.phonegap.LaunchWebSDK"
+               label="Launch WebSDK"
+               menubarPath="phonegapmenu">
+         </action>
+         <action
+               class="websdk_plugin.actions.LaunchPhoneGap"
+               id="com.example.phonegap.LaunchPhoneGap"
+               label="Launch Phonegap Simulator"
+               menubarPath="phonegapmenu">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>

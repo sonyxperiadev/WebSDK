@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Phonegap Docs</title>
+<link rel="stylesheet" href="../css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="../css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="../css/master.css" type="text/css" media="screen" />
+</head>
+<body>
+<div class="container">
+  <div id="header">
+    <h1><a href="../api.html" class="title">PhoneGap Docs</a></h1>
+  </div>
+  <div id="navigation" class="column span-4">  
+	  <h4>PhoneGap</h4>
+	  <div>
+	    <a href='../docs/device.html'>Device</a>
+	    <a href='../docs/notification.html'>Notification</a>
+	    <a href='../docs/media.html'>Media</a>
+	    <a href='../docs/geolocation.html'>GeoLocation</a>
+	    <a href='../docs/accelerometer.html'>Accelerometer</a>
+	    <a href='../docs/contact.html'>Contact</a>
+	    <a href='../docs/camera.html'>Camera</a>
+	  </div>
+	</div>	
+  <div id="main" class="column l-border span-19 last demo">
+    <ul class="devices"><li class="iphone">iphone</li><li class="android">android</li><li class="blackberry">blackberry</li><li class="symbian">symbian</li></ul>
+
+<h2>getCurrentPosition</h2>
+
+<h3>Syntax</h3>
+<p class="syntax">navigator.geolocation.getCurrentPosition(<span class="arg req">win</span>, <span class="arg req">fail</span>);</p>
+
+<h3>Arguments</h3>
+<p class="argument">win<span class="type">Function</span></p>
+<p class="argument">fail<span class="type">Function</span></p>
+
+<h3 class="code">Example</h3>
+<pre>var getLocation = function() {
+
+  var win = function(p){
+    alert(p.coords.latitude + " " + p.coords.longitude);
+  };
+  var fail = function(){
+    //default query
+  };
+  
+  navigator.geolocation.getCurrentPosition(win, fail);
+}</pre>
+
+<hr />
+
+<ul class="devices"><li class="iphone">iphone</li><li class="android">android</li><li class="blackberry">blackberry</li><li class="symbian">symbian</li></ul>
+
+<h2>watchPosition</h2>
+
+<h3>Syntax</h3>
+<p class="syntax">navigator.geolocation.watchPosition(<span class="arg req">win</span>, <span class="arg req">fail</span>, <span class="arg opt">opts</span>);</p>
+
+<h3>Arguments</h3>
+<p class="argument">win<span class="type">Function</span></p>
+<p class="argument">fail<span class="type">Function</span></p>
+<p class="argument">opts <span class="optional">(Optional)</span><span class="type">Object</span></p>
+
+<h3>Return Value</h3>
+<p class="argument">watchId<span class="type">number</span></p>
+
+<h3 class="code">Example</h3>
+<pre>var watch = function() {
+  
+  var win = function(p){
+    alert(p.coords.latitude + " " + p.coords.longitude);
+  };
+  var fail = function(){
+    //default query
+  };
+  var options = {};
+  options.frequency = 3000;
+  
+  watchId = navigator.geolocation.watchPosition(win, fail, options);
+}</pre>
+
+<hr />
+
+<ul class="devices"><li class="iphone">iphone</li><li class="android">android</li><li class="blackberry">blackberry</li><li class="symbian">symbian</li></ul>
+
+<h2>clearWatch</h2>
+
+<h3>Syntax</h3>
+<p class="syntax">navigator.geolocation.clearWatch(<span class="arg req">watchId</span>);</p>
+
+<h3>Arguments</h3>
+<p class="argument">watchId<span class="type">number</span></p>
+
+<h3 class="code">Example</h3>
+<pre>navigator.geolocation.clearWatch(watchId)</pre>
+
+  </div>
+  <div id="footer" class="column clear span-24">
+    <p>This layout was shamelessly taken from <a href="http://demos.mootools.net/">mootools demos</a></p>
+  </div>
+</div>
+</body>
+</html>

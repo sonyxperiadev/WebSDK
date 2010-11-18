@@ -1,0 +1,110 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body
+{
+  
+}
+
+#container {
+    position: relative;
+    height: 300px;
+    width: 480px;
+    margin: 50px auto;
+    overflow: hidden;
+    background: url('imgs/ddBkg.png') no-repeat bottom left;
+}
+
+/* Defines the position and dimensions of the seedContainer div */
+#seedContainer 
+{
+    position: absolute;
+    width: 100%;
+    height: 250px;
+}
+
+/* Defines the appearance, position, and dimensions of the message div */
+
+
+
+
+
+/* This CSS rule is applied to all div elements in the seedContainer div.
+   It styles and animates each seedDiv.
+*/
+#seedContainer > div 
+{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    
+    /* We use the following properties to apply the fade and drop animations to each seed.
+       Each of these properties takes two values. These values respectively match a setting
+       for fade and drop.
+    */
+    -webkit-animation-iteration-count: infinite, infinite;
+    -webkit-animation-direction: normal, normal;
+    -webkit-animation-timing-function: linear, ease-in;
+}
+
+/* This CSS rule is applied to all img elements directly inside div elements which are
+   directly inside the seedContainer div. In other words, it matches the 'img' elements
+   inside the seedDivs which are created in the createAseed() function.
+*/
+#seedContainer > div > img {
+     position: absolute;
+     width: 100px;
+     height: 100px;
+
+    /* We use the following properties to adjust the clockwiseSpin or counterclockwiseSpinAndFlip
+       animations on each seed.
+       The createAseed function in the seeds.js file determines whether a seed has the 
+       clockwiseSpin or counterclockwiseSpinAndFlip animation.
+    */
+     -webkit-animation-iteration-count: infinite;
+     -webkit-animation-direction: alternate;
+     -webkit-animation-timing-function: ease-in-out;
+     -webkit-transform-origin: 50% -100%;
+}
+
+
+/* Hides a seed towards the very end of the animation */
+@-webkit-keyframes fade
+{
+    /* Show a seed while into or below 95 percent of the animation and hide it, otherwise */
+    0%   { opacity: 1; }
+    95%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+
+/* Makes a seed fall from -300 to 600 pixels in the y-axis */
+@-webkit-keyframes drop
+{
+    /* Move a seed to -300 pixels in the y-axis at the start of the animation */
+    0%   { -webkit-transform: translate(-50px, 0px); }
+    /* Move a seed to 600 pixels in the y-axis at the end of the animation */
+    100% { -webkit-transform: translate(480px, 0px); }
+}
+
+
+
+
+/* Rotates a seed from -50 to 50 degrees in 2D space */
+@-webkit-keyframes clockwiseSpin
+{
+    /* Rotate a seed by -50 degrees in 2D space at the start of the animation */
+    0%   { -webkit-transform: rotate(-50deg); }
+    /*  Rotate a seed by 50 degrees in 2D space at the end of the animation */
+    100% { -webkit-transform: rotate(50deg); }
+}
+
+
+/* Flips a seed and rotates it from 50 to -50 degrees in 2D space */
+@-webkit-keyframes counterclockwiseSpinAndFlip 
+{
+    /* Flip a seed and rotate it by 50 degrees in 2D space at the start of the animation */
+    0%   { -webkit-transform: scale(-1, 1) rotate(50deg); }
+    /* Flip a seed and rotate it by -50 degrees in 2D space at the end of the animation */
+    100% { -webkit-transform: scale(-1, 1) rotate(-50deg); }
+}

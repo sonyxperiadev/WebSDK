@@ -1,0 +1,54 @@
+/* 
+    Document   : se-style
+    Created on : 2009-nov-09, 10:09:31
+    Author     : 23058051
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body {
+    font-family: Arial;
+    width:600px;
+    font-size:11pt;
+    margin-left:10px;
+}
+
+h1, h2, h3, h4 {
+   color : #294eA2;
+}
+
+
+
+a {
+    color : #294EA2;
+    text-decoration:none;
+    border:none;
+}
+
+a img {
+    border:none;
+    text-decoration:none;
+    padding:0px;
+}
+
+a:hover {
+    color : #294Ed2;
+}
+
+div.image {
+    width:80%;
+    margin:auto;
+}
+
+p {
+    
+}
+
+li {
+    margin-bottom:1em;
+}

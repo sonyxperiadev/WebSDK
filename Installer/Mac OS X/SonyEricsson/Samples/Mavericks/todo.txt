@@ -1,0 +1,24 @@
+Create About page
+
+font size increase
+
+Android Application:
+	- Change the application name
+
+twitter feed animation change
+
+scrolling and dragging
+
+
+
+# FOR CONFERENCE
+Commit to BitBucket project
+Write blog
+
+# TOUCH UPS
+Surf contest status needs other state graphics, dynamic setting of them
+
+#LATER
+SMS feature
+horizontal orientation
+accomodate smaller screen size by using alternate CSS file

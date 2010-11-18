@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PhoneGapSetup", "PhoneGapSetup\PhoneGapSetup.vdproj", "{69B70B15-68EE-476E-9761-AC129B52FCA0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69B70B15-68EE-476E-9761-AC129B52FCA0}.Debug|Default.ActiveCfg = Debug
+		{69B70B15-68EE-476E-9761-AC129B52FCA0}.Release|Default.ActiveCfg = Release
+		{69B70B15-68EE-476E-9761-AC129B52FCA0}.Release|Default.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

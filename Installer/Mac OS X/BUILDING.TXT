@@ -1,0 +1,25 @@
+For building WebSDK Packager you need to install following tools:
+------------------------------------------------------------------
+ * NetBeans (>= 6.9) http://netbeans.org/index.html
+ * PackageMaker
+
+Get code from repository
+------------------------------------------------------------------
+ * Checkout code using SCPlugin (http://scplugin.tigris.org/) or command line:
+    >svn checkout <repository url>
+
+Steps for bulding WebSDK Packager:
+------------------------------------------------------------------
+ * Start NetBeans
+ * 'File'->'Open Project'
+   * Select source code root folder
+ * 'Run'->'Clean and build project'
+   * Move jar-file (WebSDK.jar) from folder 'dist' into bundle 'Installer/Mac OS X/SonyEricsson/WebSDKPackager.app' internal path: 'Contents/Resources/WebSDK/'
+
+Steps for generating installer:
+------------------------------------------------------------------
+ * Update folder 'Installer/Mac OS X/SonyEricsson' for new versions of documentation, link and other resources
+ * Update bundle 'Installer/Mac OS X/SonyEricsson/WebSDKPackager.app' for new PhoneGap Simulator and Android project stub (folder assets should contain only phonegap.js file)   
+ * Open file Package project 'Installer/Mac OS X/SonyEricssonWebSDKPackager-1.2.1.pmdoc'
+ * Update package content (using drug-n-drop or menu) from folder 'Installer/Mac OS X/SonyEricsson/'
+ * Press 'Build' button

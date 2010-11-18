@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta name="viewport" content="width=320; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>PhoneGap Simulator Demo</title>
+	<!--<script type='text/javascript' 
+	src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script>-->
+	<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+	<script type="text/javascript" charset="utf-8">
+
+	var ballSize = 52;
+	var fieldSize = 295;
+	var rad = 25;
+	var top = 150;
+	var bottom = 445;
+	var left = 10;
+	var right = 310;
+	
+	var y = fieldSize/2;
+	var x = fieldSize/2;
+	var vx = 0;
+	var vy = 0;
+	var vLimit = 9.8;
+	
+	var min = rad;
+	var max = fieldSize - rad;
+	
+	var multiplier = 1.5;
+	
+	var ball;
+  	
+  	var watchAccel = function() {
+  		var suc = function(a){
+			
+			vx += a.x*multiplier;
+			vy -= a.y*multiplier;
+			
+			if (vx > vLimit) vx = vLimit;
+			if (vy > vLimit) vy = vLimit;
+			
+			x += vx;
+			y += vy;
+			
+			if (y > max) {y = max; vy = 0;}
+			if (y < min) {y = min; vy = 0;}
+			if (x > max) {x = max; vx = 0;}
+			if (x < min) {x = min; vx = 0;}
+			
+			updateBallCordinates();
+  		};
+  		var fail = function(){};
+  		var opt = {};
+  		opt.frequency = 50;
+  		timer = navigator.accelerometer.watchAcceleration(suc,fail,opt);
+  	}
+    	
+    function roundNumber(num) {
+      var dec = 3;
+      var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
+      return result;
+    }
+    
+	var preventBehavior = function(e) { 
+		e.preventDefault(); 
+	};
+		
+	function updateBallCordinates() {
+		ball.style.left = (left+x-ballSize/2).toString() + 'px';
+		ball.style.top = (top+y-ballSize/2).toString() + 'px';
+	}
+	
+	function init(){
+	  	document.addEventListener("touchmove", preventBehavior, false);
+		ball = document.getElementById('ball');
+		updateBallCordinates();
+	}
+		
+	  </script>
+<style>
+	body {
+		color: #fff;
+		background: #bbb;
+	}
+	
+	h2 {
+		margin-bottom: 0;	
+	}
+	
+	h3 {
+		padding-top: 0;
+		margin-top: 0;	
+		margin-bottom: 25px;
+	}
+	
+	#header {
+		height: 120px;
+		margin: 10px;
+	}
+	
+	#container {
+		margin: 10px;
+		border:  #666 0px solid;
+		width: 295px;
+		height:295px;
+	    -webkit-border-radius: 10px;
+		background:#fff;
+	}
+
+	#ball {
+		width: 52px;
+		height: 52px;
+		background:  url(assets/ball.png);
+		position:absolute;
+	}
+	
+	.btn {
+		text-decoration: none;
+		padding: 8px 24px;
+		background:#fff;
+		color: #aaa;
+		font-weight: bold;
+	    -webkit-border-radius: 10px;
+	}
+	
+	.btn:hover {
+		background: #6fd9f4;	
+		color: #fff;
+	}
+
+</style>
+  </head>
+  <body onload="init();" id="stage" class="theme">
+   	<div id="x"/></div>
+	<div id="header">
+		<h2>PhoneGap Simulator</h2>
+		<h3>Accelerometer Demo 1</h3>
+   		<a href="#" class="btn large" onclick="watchAccel();">Start</a>
+   		<a href="index.html" class="btn large" >Home</a>
+	</div>
+	
+	<div id="container">
+		<div id="ball"  ></div>
+	</div>
+	
+  </body>
+</html>

@@ -1,0 +1,95 @@
+body {
+	color: #fff;
+	background: #aaa;
+}
+
+h2 {
+	margin-bottom: 0;	
+}
+
+h3 {
+	padding-top: 0;
+	margin-top: 0;	
+}
+
+#header {
+	height: 120px;
+	margin: 18px;
+}
+
+#container,  #filter {
+	margin: 18px;
+	background: #fff url('bg grass.png');
+	border: #666 2px solid;
+	width: 280px;
+	height:280px;
+	-webkit-border-radius: 10px;
+}
+
+#info {
+	margin-top: 24px;
+}
+
+.hp {
+	background: url('hp.png');
+	float: left;
+	width: 24px;
+	height: 24px;
+}
+
+#filter {
+	position: absolute;
+	background: url('bg filter.png');
+}
+
+.heroF, .heroB, .heroFR, .heroFL, .heroBR, .heroBL, .heroR, .heroL {
+	width: 50px;
+	height: 41px;
+	background:  url(heroF.png);
+	position:absolute;
+}
+.heroB, .heroBR, .heroBL {
+	background:  url(heroB.png);
+}
+.heroR {background:  url(heroR.png);}
+.heroL {background:  url(heroL.png);}
+.heroFR {background:  url(heroFR.png);}
+.heroFL {background:  url(heroFL.png);}
+
+
+.heart, .trap, .item {
+	width: 48px;
+	height: 48px;
+	background: url(heart.png) no-repeat;
+	position:absolute;
+}
+
+.trap {background: url(trap.png) no-repeat;}
+
+.item {background: url(item1.png) no-repeat;}
+
+.btn {
+	text-decoration: none;
+	padding: 8px 12px;
+	background:#fff;
+	color: #aaa;
+	font-weight: bold;
+	margin-right: 8px;
+	-webkit-border-radius: 10px;
+}
+
+.btn:hover {
+	background: #6fd9f4;	
+	color: #fff;
+}
+
+#edge {
+	-webkit-border-radius: 8px;
+	width: 280px;
+	height: 280px;
+	top: 159px;
+	left: 20px;
+	background: url(cutoff.png) no-repeat;
+	background-position: -280px -280px;
+	position:absolute;
+}
